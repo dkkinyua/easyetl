@@ -138,16 +138,21 @@ class Transform:
     def drop_na(data, columns: list=None, drop: str='index', inplace: bool=False, how: str='any'): 
         if not isinstance(data, pd.DataFrame):
             raise TypeError('Expected data to be a pandas.DataFrame')
+        
+        default_kwargs = {
+            'axis': drop,
+            'how': how,
+            'inplace': inplace
+        }
 
         try:
             if columns is not None:
-                cleaned_data = data.dropna(axis=drop, inplace=inplace, subset=columns, how=how)
-            else:
-                cleaned_data = data.dropna(axis=drop, inplace=inplace, how=how)
+                default_kwargs['subset'] = columns
+
+            cleaned_data = data.dropna(**default_kwargs) # keeps code clean with a dict of default arguments
             
             if not inplace: # if inplace = False, return the cleaned data
                 return cleaned_data
-            return data
         except Exception as e:
             print(f'Error: {str(e)}')    
             
