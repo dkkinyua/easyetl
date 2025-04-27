@@ -48,7 +48,7 @@ ii. Load into a CSV file
 iii. Load into a JSON file
 iv. Load into an Excel file ( user needs openpyxl module for this )
 v. Load into an API through requests.post
-
+vi. Load into AWS S3 bucket 
 '''
 class Load:
     # loads data into a CSV file
@@ -115,5 +115,39 @@ class Load:
         except Exception as e:
             print(f'Error occurred during loading to database: {str(e)}')
 
-    
+
+"""
+Transform:
+i. drop NA rows
+ii replacing values
+iii. explode df into individual rows
+iv: change column dtype
+v: change into a datetime instance
+"""
+class Transform:
+    '''
+    Removes missing values. 
+    Takes in 5 parameters, 1 mandatory, 4 optional.
+    i. data = a pandas.DataFrame object
+    ii. drop = checks to drop either index(rows) or column, default index
+    iii. inplace = Save the dataframe without the missing values, default False
+    iv. columns = A list of columns to check and remove missing values, optional param
+    v. how = Tells our method on what parameters should we drop missing values.'all' drops a row/column if it contains all NA values and 'any' drops any row/column with a missing value. Default any
+    '''
+    @staticmethod
+    def drop_na(data, columns: list=None, drop: str='index', inplace: bool=False, how: str='any'): 
+        if not isinstance(data, pd.DataFrame):
+            raise TypeError('Expected data to be a pandas.DataFrame')
+
+        try:
+            if columns is not None:
+                cleaned_data = data.dropna(axis=drop, inplace=inplace, subset=columns, how=how)
+            else:
+                cleaned_data = data.dropna(axis=drop, inplace=inplace, how=how)
+            
+            if not inplace: # if inplace = False, return the cleaned data
+                return cleaned_data
+            return data
+        except Exception as e:
+            print(f'Error: {str(e)}')    
             
