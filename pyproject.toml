@@ -7,7 +7,7 @@ name = "easyetl"
 version = "0.1.0"
 description = "easyetl, an end-to-end ETL (Extract, Transform, Load) pipeline development package using pandas, requests, sqlalchemy, psycopg2-binary"
 authors = [
-    {"name": "Denzel Kinyua", "email":"denzelkinyua11@gmail.com"}
+    {"name"="Denzel Kinyua", "email"="denzelkinyua11@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.7"
