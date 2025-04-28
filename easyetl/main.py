@@ -56,7 +56,7 @@ class Load:
 
     # helper function to check if file exists
     @staticmethod
-    def check_file(filepath, overwrite: bool):
+    def _check_file(filepath, overwrite: bool):
         if os.path.exists(filepath) and not overwrite: # checks if filepath already exists in the current directory
             raise FileExistsError(f'The file on {filepath} exists, pass overwrite=True to overwrite file')
 
@@ -66,7 +66,7 @@ class Load:
             raise TypeError('Expected data to be a Pandas.DataFrame object')
         
         try:
-            check_file(filepath, overwrite)
+            Load._check_file(filepath, overwrite)
             data.to_csv(filepath, index=False) # converts data into a CSV file, if it is a Pandas dataframe
             print('CSV file loaded successfully')
         except Exception as e:
@@ -78,10 +78,7 @@ class Load:
             raise TypeError('Expected data to be a Pandas.DataFrame object')
         
         try:
-            if os.path.exists(filepath) and not overwrite:
-                print('That file already exists. Use the overwrite=True to overwrite it')
-                return
-            
+            Load._check_file(filepath, overwrite)
             data.to_json(filepath)
             print('JSON file loaded successfully')
         except Exception as e:
@@ -93,9 +90,7 @@ class Load:
             raise TypeError('Expected data to be a Pandas.DataFrame object')
         
         try:
-            if os.path.exists(filepath) and not overwrite:
-                print('That file already exists. Use the overwrite=True to overwrite it')
-                return
+            Load._check_file(filepath, overwrite)
             data.to_excel(filepath)
             print('Excel file loaded successfully')
         except Exception as e:
