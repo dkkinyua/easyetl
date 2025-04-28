@@ -127,7 +127,7 @@ class Transform:
     v. inplace: Modifies data permanently. Default = False and returns the modified dataframe, True returns the unmodified dataframe as it returns None in pandas
     vi. errors: returns errors. Default = 'ignore', ignores errors and returns existing keys will be renamed and extra keys will be ignored, 'raise' will raise a KeyError to indicate that columns/index args have values that are not present in the dataframe.
     '''
-    def rename(data, to_rename: str, columns: dict, index: dict, inplace: bool=False, errors: str='ignore'):
+    def rename(data, to_rename: str = None, columns: dict = None, index: dict = None, inplace: bool=False, errors: str='ignore'):
         if not isinstance(data, (pd.DataFrame)):
             raise TypeError('Expected data to be a Dataframe')
         
