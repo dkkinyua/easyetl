@@ -7,7 +7,7 @@ eazyetl is a lightweight, beginner-friendly, and modular Python package for buil
 ## Installation
 Install the package from TestPyPI:
 ```bash
-pip install --index-url https://test.pypi.org/simple/ eazyetl
+pip install eazyetl
 ```
 ## Features
 - 📦 Extract from CSV, JSON, APIs, and PostgreSQL
