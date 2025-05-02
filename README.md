@@ -4,6 +4,28 @@
 
 eazyetl is a lightweight, beginner-friendly, and modular Python package for building end-to-end ETL (Extract, Transform, Load) pipelines. It provides intuitive classes and methods for working with data from various sources like APIs, CSV/JSON files, and databases, and helps you clean, transform, and load that data with ease.
 
+## Key changes.
+
+In version 0.1.6, two new methods have been added to the `Extract()` class.
+- `Extract.read_db_via_url` and
+- `Extract.read_db_via_params`
+
+`Extract.read_db_via_url` reads a SQL database e.g. MySQL or PostgreSQL via a database URI. This is easier and cleaner to use as compared to `Extract.read_db_via_params` which only reads a PostgreSQL database and entering those database values seems quite cumbersome for the user, but it is still included for users who might prefer this to using URIs.
+
+i. `Extract.read_db_via_url` parameters:
+- `url` datatype, str. The database URI, required parameter
+- `table_name` datatype, str. The table name, required parameter
+- `columns` datatype, list. A list of columns from the table
+- `parse_dates` datatype, list or dict. This parameter tells our function which columns to parse as datetime objects.
+
+ii. `Extract.read_db_via_params` parameters:
+- `database` datatype str. The database name
+- `query` datatype str. The SQL query to be executed when running the method. Example: `'SELECT * FROM employees'`
+- `user` datatype str. The user's username
+- `password` datatype str. The user's password
+- `host` datatype str. The database's host, default localhost
+- `port` datatype str. The database's port number, default 5432
+
 ## Installation
 Install the package from TestPyPI:
 ```bash
@@ -61,7 +83,8 @@ Load.load_to_db(df, name="salaries", url="postgresql://user:pass@localhost:5432/
 | `read_csv(filepath)` | Load data from CSV |
 | `read_json(filepath)` | Load data from JSON |
 | `read_api(url)` | Load JSON data from an API |
-| `read_db(database, url, username, password, query)` | Load data from PostgreSQL database |
+| `read_db_via_params(query, user, password, host, port, database)` | Load data from PostgreSQL database |
+| `read_db_via_url(url, table_name, columns=None, parse_dates=None)` | Load data from database URI |
 
 ### 2. Transform
 
